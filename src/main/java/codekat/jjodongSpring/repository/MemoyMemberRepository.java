@@ -4,7 +4,7 @@ import codekat.jjodongSpring.domain.Member;
 
 import java.util.*;
 
-public class MemoyMemberRepsitory implements MemberRepository{
+public class MemoyMemberRepository implements MemberRepository{
     private static Map<Long , Member> store = new HashMap<Long, Member>();
     private static Long sequence = 0L;
 
@@ -22,12 +22,16 @@ public class MemoyMemberRepsitory implements MemberRepository{
 
     @Override
     public Optional<Member> findByName(String name) {
-        return store.values().stream().filter(member -> member.equals(name))
+        return store.values().stream().filter(member -> member.getName().equals(name))
                 .findAny();
     }
 
     @Override
     public List<Member> findAll() {
         return new ArrayList<Member>(store.values());
+    }
+
+    public void clearStore(){
+        store.clear();
     }
 }
